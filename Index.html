@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsonRpc</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script src="/scripts/jquery.signalR-2.1.1.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/jsonrpc.js"></script>
+    <script src="/scripts/home.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">Index</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div style="margin-top:20px;">&nbsp;</div>
+        <h1>Home</h1>
+        <div ng-controller="HomeCtrl">
+            <ul>
+                <li>Home: {{ home.Title }}</li>
+                <li>Save: {{ save }}</li>
+            </ul>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; My ASP.NET Application</p>
+        </footer>
+    </div>
+    <script>
+        (function () {
+            $.connection.hub.start().then(function () {
+                angular.element(document).ready(function () {
+                    angular.bootstrap(document, ['app']);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
