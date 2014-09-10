@@ -36,3 +36,11 @@ You can execute it from Angular.js very easily:
     }, function (err) {
         alert(JSON.stringify(err));
     });
+
+Or even execute it using SignalR just as simply:
+
+    jsonrpc.signalr("home", { Body: { Title: 'Test' } }).then(function (data) {
+        $scope.home = data;
+    }, function (err) {
+        alert(JSON.stringify(err));
+    });
