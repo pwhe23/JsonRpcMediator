@@ -8,18 +8,18 @@ public class Home : Command<Home.Output>
         if (Body == null) return null;
         return new Output
         {
-            Title = "Hello2 " + Body.Title,
+            Message = "Hello2 " + Body.Name,
         };
     }
 
     public class Input
     {
-        public string Title { get; set; }
+        public string Name { get; set; }
     }
 
     public class Output
     {
-        public string Title { get; set; }
+        public string Message { get; set; }
     };
 };
 

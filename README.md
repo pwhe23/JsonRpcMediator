@@ -14,24 +14,24 @@ Say you have a C# command on the server:
             if (Body == null) return null;
             return new Output
             {
-                Title = "Hello " + Body.Title,
+                Message = "Hello2 " + Body.Name,
             };
         }
 
         public class Input
         {
-            public string Title { get; set; }
+            public string Name { get; set; }
         }
 
         public class Output
         {
-            public string Title { get; set; }
+            public string Message { get; set; }
         };
     };
 
 You can execute it from Angular.js very easily:
 
-    jsonrpc.http("home", { Body: { Title: 'Test' } }).then(function (data) {
+    jsonrpc.http("home", { Body: { Name: 'Test' } }).then(function (data) {
         $scope.home = data;
     }, function (err) {
         alert(JSON.stringify(err));
@@ -39,7 +39,7 @@ You can execute it from Angular.js very easily:
 
 Or even execute it using SignalR just as simply:
 
-    jsonrpc.signalr("home", { Body: { Title: 'Test' } }).then(function (data) {
+    jsonrpc.signalr("home", { Body: { Name: 'Test' } }).then(function (data) {
         $scope.home = data;
     }, function (err) {
         alert(JSON.stringify(err));

@@ -1,13 +1,13 @@
 ﻿
 app.controller('HomeCtrl', function ($scope, $http, jsonrpc) {
 
-    //jsonrpc.http("home", { Body: { Title: 'Test' } }).then(function (data) {
+    //jsonrpc.http("home", { Body: { Name: 'Test' } }).then(function (data) {
     //    $scope.home = data;
     //}, function (err) {
     //    alert(JSON.stringify(err));
     //});
 
-    $http.post("command/home", { Body: { Title: 'Test4' } }).then(function (resp) {
+    $http.post("command/home", { Body: { Name: 'Test4' } }).then(function (resp) {
         $scope.home = resp.data;
     }, function (err) {
         alert(JSON.stringify(err));
