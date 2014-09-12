@@ -44,3 +44,7 @@ Or even execute it using SignalR just as simply:
     }, function (err) {
         alert(JSON.stringify(err));
     });
+
+Links
+* [JsonRpc 2.0 Spec](http://www.jsonrpc.org/specification)
+* [Ayende on Commands](http://ayende.com/blog/154241/limit-your-abstractions-the-key-is-in-the-infrastructure)
