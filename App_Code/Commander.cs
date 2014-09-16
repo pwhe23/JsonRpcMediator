@@ -97,6 +97,13 @@ public interface ICommand<out T> : ICommand
 
 public abstract class Command<T> : ICommand<T>
 {
+    protected Command()
+    {
+        //commands should all allow default constructors to ease passing instances to Execute()
+        //which would create IOC instances with dependency-filled constructors and then map
+        //default constructor object to them
+    }
+
     public abstract T Execute();
 
     object ICommand.Execute()
