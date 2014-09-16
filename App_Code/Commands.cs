@@ -25,10 +25,20 @@ public class Home : Command<Home.Output>
 
 public class Save : Command<bool>
 {
+    private readonly IMediator _mediator;
+
+    public Save() { }
+    public Save(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
     public int? Id { get; set; }
 
     public override bool Execute()
     {
-        return Id > 0;
+        //Commands can call other commands using the Mediator
+        var result = _mediator.Execute(new Home {Body = new Home.Input {Name = "Test " + Id}});
+        return result != null && Id > 0;
     }
 };

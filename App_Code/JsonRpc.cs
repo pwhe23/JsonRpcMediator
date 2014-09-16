@@ -7,9 +7,9 @@ using Newtonsoft.Json.Linq;
 
 public class JsonRpc
 {
-    private readonly ICommandProcessor _commander;
+    private readonly IJsonProcessor _commander;
 
-    public JsonRpc(ICommandProcessor commander)
+    public JsonRpc(IJsonProcessor commander)
     {
         _commander = commander;
     }
@@ -134,7 +134,7 @@ public class JsonRpcError
     public Object data { get; set; }
 };
 
-public interface ICommandProcessor
+public interface IJsonProcessor
 {
     Object Execute(string name, string json);
 };

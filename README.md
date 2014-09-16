@@ -49,6 +49,3 @@ Links
 * [JsonRpc 2.0 Spec](http://www.jsonrpc.org/specification)
 * [Ayende on Commands](http://ayende.com/blog/154241/limit-your-abstractions-the-key-is-in-the-infrastructure)
 * [Tackling cross-cutting concerns with a mediator pipeline](http://lostechies.com/jimmybogard/2014/09/09/tackling-cross-cutting-concerns-with-a-mediator-pipeline/)
-
-TODO
-* Implement MediatR? or similar for commands (https://github.com/jbogard/MediatR)
