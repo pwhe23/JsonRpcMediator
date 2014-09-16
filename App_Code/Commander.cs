@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Web.Http;
+using AutoMapper;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 public class Commander : ICommandProcessor
 {
-    public Object Execute(ICommand command)
+    // Copying fakeCommand to command allows commands to be "newed" up with a default constructor
+    // in client code, while allowing a second dependency-paramaterized constructor to be
+    // populated by the IOC here before being executed
+    public T Execute<T>(ICommand<T> fakeCommand)
     {
-        return command.Execute();
-    }
-
-    public T Execute<T>(ICommand<T> command)
-    {
+        var type = fakeCommand.GetType();
+        var command = (ICommand<T>)TinyIoC.TinyIoCContainer.Current.Resolve(type);
+        Mapper.DynamicMap(fakeCommand, command);
         return command.Execute();
     }
 
@@ -22,9 +24,14 @@ public class Commander : ICommandProcessor
         return Execute(command);
     }
 
+    private static Object Execute(ICommand command)
+    {
+        return command.Execute();
+    }
+
     private static ICommand LoadCommand(string name, string json)
     {
-        //HACK: get types some other way, like finding instances of ICommand on app load
+        //HACK: GetTypes some other way, like finding instances of ICommand on app load
         var type = Type.GetType(name, true, true);
         var command = (ICommand)TinyIoC.TinyIoCContainer.Current.Resolve(type);
 
@@ -83,7 +90,7 @@ public interface ICommand
     Object Execute();
 };
 
-public interface ICommand<T> : ICommand
+public interface ICommand<out T> : ICommand
 {
     new T Execute();
 };
