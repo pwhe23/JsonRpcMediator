@@ -7,11 +7,11 @@ using Newtonsoft.Json.Linq;
 
 public class JsonRpc
 {
-    private readonly IJsonProcessor _commander;
+    private readonly IJsonProcessor _processor;
 
-    public JsonRpc(IJsonProcessor commander)
+    public JsonRpc(IJsonProcessor processor)
     {
-        _commander = commander;
+        _processor = processor;
     }
 
     public Object Execute(string data)
@@ -19,7 +19,7 @@ public class JsonRpc
         if (string.IsNullOrWhiteSpace(data))
             return null;
 
-        if (data.TrimStart().StartsWith("[")) //batch
+        if (data.TrimStart().StartsWith("[")) //batch is an array instead of object
         {
             var requests = JsonConvert.DeserializeObject<JsonRpcRequest[]>(data);
             var responses = new List<JsonRpcResponse>();
@@ -42,7 +42,7 @@ public class JsonRpc
         try
         {
             var json = request.@params == null ? null : request.@params.ToString();
-            var result = _commander.Execute(request.method, json);
+            var result = _processor.Process(request.method, json);
             return new JsonRpcResponse
             {
                 jsonrpc = request.jsonrpc,
@@ -136,5 +136,5 @@ public class JsonRpcError
 
 public interface IJsonProcessor
 {
-    Object Execute(string name, string json);
+    Object Process(string name, string json);
 };

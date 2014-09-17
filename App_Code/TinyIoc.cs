@@ -68,6 +68,7 @@
 
 using System.Web;
 using System.Web.Http.Dependencies;
+using Microsoft.Practices.ServiceLocation;
 
 namespace TinyIoC
 {
@@ -1367,7 +1368,6 @@ namespace TinyIoC
         /// <typeparam name="RegisterImplementation">Type to register</typeparam>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>()
-            where RegisterType : class
         {
             return this.Register(typeof(RegisterType));
         }
@@ -1379,7 +1379,6 @@ namespace TinyIoC
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(string name)
-            where RegisterType : class
         {
             return this.Register(typeof(RegisterType), name);
         }
@@ -1391,8 +1390,7 @@ namespace TinyIoC
         /// <typeparam name="RegisterImplementation">Type to instantiate that implements RegisterType</typeparam>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType, RegisterImplementation>()
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+            where RegisterImplementation : RegisterType
         {
             return this.Register(typeof(RegisterType), typeof(RegisterImplementation));
         }
@@ -1405,8 +1403,7 @@ namespace TinyIoC
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType, RegisterImplementation>(string name)
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+            where RegisterImplementation : RegisterType
         {
             return this.Register(typeof(RegisterType), typeof(RegisterImplementation), name);
         }
@@ -1418,7 +1415,6 @@ namespace TinyIoC
         /// <param name="instance">Instance of RegisterType to register</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(RegisterType instance)
-           where RegisterType : class
         {
             return this.Register(typeof(RegisterType), instance);
         }
@@ -1431,7 +1427,6 @@ namespace TinyIoC
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(RegisterType instance, string name)
-            where RegisterType : class
         {
             return this.Register(typeof(RegisterType), instance, name);
         }
@@ -1444,8 +1439,7 @@ namespace TinyIoC
         /// <param name="instance">Instance of RegisterImplementation to register</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType, RegisterImplementation>(RegisterImplementation instance)
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+            where RegisterImplementation : RegisterType
         {
             return this.Register(typeof(RegisterType), typeof(RegisterImplementation), instance);
         }
@@ -1459,8 +1453,7 @@ namespace TinyIoC
         /// <param name="name">Name of registration</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType, RegisterImplementation>(RegisterImplementation instance, string name)
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+            where RegisterImplementation : RegisterType
         {
             return this.Register(typeof(RegisterType), typeof(RegisterImplementation), instance, name);
         }
@@ -1472,7 +1465,6 @@ namespace TinyIoC
         /// <param name="factory">Factory/lambda that returns an instance of RegisterType</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(Func<TinyIoCContainer, NamedParameterOverloads, RegisterType> factory)
-            where RegisterType : class
         {
             if (factory == null)
             {
@@ -1490,7 +1482,6 @@ namespace TinyIoC
         /// <param name="name">Name of registation</param>
         /// <returns>RegisterOptions for fluent API</returns>
         public RegisterOptions Register<RegisterType>(Func<TinyIoCContainer, NamedParameterOverloads, RegisterType> factory, string name)
-            where RegisterType : class
         {
             if (factory == null)
             {
@@ -1684,7 +1675,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>()
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType));
         }
@@ -1697,7 +1687,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(ResolveOptions options)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), options);
         }
@@ -1713,7 +1702,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(string name)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), name);
         }
@@ -1730,7 +1718,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(string name, ResolveOptions options)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, options);
         }
@@ -1746,7 +1733,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(NamedParameterOverloads parameters)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), parameters);
         }
@@ -1763,7 +1749,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(NamedParameterOverloads parameters, ResolveOptions options)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), parameters, options);
         }
@@ -1780,7 +1765,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(string name, NamedParameterOverloads parameters)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, parameters);
         }
@@ -1798,7 +1782,6 @@ namespace TinyIoC
         /// <returns>Instance of type</returns>
         /// <exception cref="TinyIoCResolutionException">Unable to resolve the type.</exception>
         public ResolveType Resolve<ResolveType>(string name, NamedParameterOverloads parameters, ResolveOptions options)
-            where ResolveType : class
         {
             return (ResolveType)Resolve(typeof(ResolveType), name, parameters, options);
         }
@@ -1931,7 +1914,6 @@ namespace TinyIoC
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>()
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType));
         }
@@ -1944,7 +1926,6 @@ namespace TinyIoC
         /// <typeparam name="ResolveType">Type to resolve</typeparam>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), name);
         }
@@ -1958,7 +1939,6 @@ namespace TinyIoC
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(ResolveOptions options)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), options);
         }
@@ -1973,7 +1953,6 @@ namespace TinyIoC
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, ResolveOptions options)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), name, options);
         }
@@ -1990,7 +1969,6 @@ namespace TinyIoC
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(NamedParameterOverloads parameters)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), parameters);
         }
@@ -2008,7 +1986,6 @@ namespace TinyIoC
         /// <param name="parameters">User supplied named parameter overloads</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, NamedParameterOverloads parameters)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), name, parameters);
         }
@@ -2026,7 +2003,6 @@ namespace TinyIoC
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(NamedParameterOverloads parameters, ResolveOptions options)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), parameters, options);
         }
@@ -2045,7 +2021,6 @@ namespace TinyIoC
         /// <param name="options">Resolution options</param>
         /// <returns>Bool indicating whether the type can be resolved</returns>
         public bool CanResolve<ResolveType>(string name, NamedParameterOverloads parameters, ResolveOptions options)
-            where ResolveType : class
         {
             return CanResolve(typeof(ResolveType), name, parameters, options);
         }
@@ -2229,7 +2204,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2251,7 +2225,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(ResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2273,7 +2246,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2296,7 +2268,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, ResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2318,7 +2289,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(NamedParameterOverloads parameters, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2341,7 +2311,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, NamedParameterOverloads parameters, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2364,7 +2333,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(NamedParameterOverloads parameters, ResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2388,7 +2356,6 @@ namespace TinyIoC
         /// <param name="resolvedType">Resolved type or default if resolve fails</param>
         /// <returns>True if resolved sucessfully, false otherwise</returns>
         public bool TryResolve<ResolveType>(string name, NamedParameterOverloads parameters, ResolveOptions options, out ResolveType resolvedType)
-            where ResolveType : class
         {
             try
             {
@@ -2430,7 +2397,6 @@ namespace TinyIoC
         /// <param name="includeUnnamed">Whether to include un-named (default) registrations</param>
         /// <returns>IEnumerable</returns>
         public IEnumerable<ResolveType> ResolveAll<ResolveType>(bool includeUnnamed)
-            where ResolveType : class
         {
             return this.ResolveAll(typeof(ResolveType), includeUnnamed).Cast<ResolveType>();
         }
@@ -2441,7 +2407,6 @@ namespace TinyIoC
         /// <typeparam name="ResolveType">Type to resolveAll</typeparam>
         /// <returns>IEnumerable</returns>
         public IEnumerable<ResolveType> ResolveAll<ResolveType>()
-            where ResolveType : class
         {
             return ResolveAll<ResolveType>(true);
         }
@@ -4122,6 +4087,44 @@ namespace TinyIoC
             return _container.ResolveAll(serviceType).Concat(base.GetServices(serviceType));
         }
     };
+
+    public class TinyIocServiceLocator : IServiceLocator
+    {
+        public object GetService(Type serviceType)
+        {
+            return TinyIoCContainer.Current.Resolve(serviceType);
+        }
+
+        public object GetInstance(Type serviceType)
+        {
+            return TinyIoCContainer.Current.Resolve(serviceType);
+        }
+
+        public object GetInstance(Type serviceType, string key)
+        {
+            return TinyIoCContainer.Current.Resolve(serviceType, key);
+        }
+
+        public IEnumerable<object> GetAllInstances(Type serviceType)
+        {
+            return TinyIoCContainer.Current.ResolveAll(serviceType);
+        }
+
+        public TService GetInstance<TService>()
+        {
+            return TinyIoCContainer.Current.Resolve<TService>();
+        }
+
+        public TService GetInstance<TService>(string key)
+        {
+            return TinyIoCContainer.Current.Resolve<TService>(key);
+        }
+
+        public IEnumerable<TService> GetAllInstances<TService>()
+        {
+            return TinyIoCContainer.Current.ResolveAll<TService>();
+        }
+    }
 }
 
 // reverse shim for WinRT SR changes...

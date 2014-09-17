@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
+using MediatR;
 using Microsoft.AspNet.SignalR;
+using Microsoft.Practices.ServiceLocation;
 using Owin;
 using TinyIoC;
 
@@ -24,7 +26,11 @@ public class Startup
     {
         var container = TinyIoCContainer.Current;
         container.AutoRegister();
+        ServiceLocator.SetLocatorProvider(() => new TinyIocServiceLocator());
+        container.Register<ServiceLocatorProvider>(() => ServiceLocator.Current);
         container.Register<JsonRpcController>().AsPerRequestSingleton();
+        container.Register<IRequestHandler<Home, Home.Response>, Home.Handler>();
+        container.Register<IRequestHandler<SaveOrder, bool>, SaveOrder.Handler>();
     }
 
     private static void RegisterWebApi(HttpConfiguration config)

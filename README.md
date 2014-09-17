@@ -1,46 +1,41 @@
-JsonRpc
-=======
+JsonRpcMediator
+===============
 
-Simple JsonRpc implementation for Asp.net WebApi
+After reading an article by Jimmy Bogard about the Mediator pattern,
+it seemed like a good fit to go along with JsonRpc for use in an
+Angular app. This is a simple implementatio of the JsonRpc spec that
+makes it easy to invoke IRequest objects on the server from javascript.
+It currently uses Web API as the JsonRpc endpoint, but that could easily
+be swapped out.
 
-Say you have a C# command on the server:
+Say you have a C# IRequest object on the server:
 
-    public class Home : Command<Home.Output>
+    public class SaveOrder : IRequest<bool>
     {
-        public Input Body { get; set; }
+        public int? Id { get; set; }
 
-        public override Output Execute()
+        public class Handler : IRequestHandler<SaveOrder, bool>
         {
-            if (Body == null) return null;
-            return new Output
+            public bool Handle(SaveOrder request)
             {
-                Message = "Hello2 " + Body.Name,
-            };
+                return request.Id > 0;
+            }
         }
-
-        public class Input
-        {
-            public string Name { get; set; }
-        }
-
-        public class Output
-        {
-            public string Message { get; set; }
-        };
     };
+
 
 You can execute it from Angular.js very easily:
 
-    jsonrpc.http("home", { Body: { Name: 'Test' } }).then(function (data) {
-        $scope.home = data;
+    jsonrpc.http("SaveOrder", { Id:0 }).then(function (data) {
+        $scope.save = data;
     }, function (err) {
         alert(JSON.stringify(err));
     });
 
 Or even execute it using SignalR just as simply:
 
-    jsonrpc.signalr("home", { Body: { Name: 'Test' } }).then(function (data) {
-        $scope.home = data;
+    jsonrpc.signalr("SaveOrder", { Id:1 }).then(function (data) {
+        $scope.save = data;
     }, function (err) {
         alert(JSON.stringify(err));
     });
