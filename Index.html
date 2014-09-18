@@ -8,13 +8,11 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
-    <script src="/scripts/jquery.signalR-2.1.1.js"></script>
-    <script src="/signalr/hubs"></script>
     <script src="/scripts/app.js"></script>
     <script src="/scripts/jsonrpc.js"></script>
     <script src="/scripts/home.js"></script>
 </head>
-<body>
+<body ng-app="app">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -44,14 +42,5 @@
             <p>&copy; My ASP.NET Application</p>
         </footer>
     </div>
-    <script>
-        (function () {
-            $.connection.hub.start().then(function () {
-                angular.element(document).ready(function () {
-                    angular.bootstrap(document, ['app']);
-                });
-            });
-        })();
-    </script>
 </body>
 </html>

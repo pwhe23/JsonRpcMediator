@@ -1,7 +1,7 @@
 ﻿
 app.controller('HomeCtrl', function ($scope, $http, jsonrpc) {
 
-    jsonrpc.http("Home", { Name: 'Test' }).then(function (data) {
+    jsonrpc.send("Home", { Name: 'Test' }).then(function (data) {
         $scope.home = data;
     }, function (err) {
         alert(JSON.stringify(err));
@@ -13,7 +13,7 @@ app.controller('HomeCtrl', function ($scope, $http, jsonrpc) {
     //    alert(JSON.stringify(err));
     //});
 
-    jsonrpc.signalr("SaveOrder", { Id: 1 }).then(function (data) {
+    jsonrpc.send("SaveOrder", { Id: 1 }).then(function (data) {
         $scope.save = data;
     }, function (err) {
         alert(JSON.stringify(err));

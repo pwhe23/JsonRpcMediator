@@ -2,25 +2,16 @@
 app.service('jsonrpc', function ($http, $q) {
 
     return {
-        http: http,
-        signalr: signalr,
+        send: send,
         batch: batch
     };
 
-    function http(method, params) {
+    function send(method, params) {
         var defer = $q.defer();
         $http.post('jsonrpc', wrap(method, params)).then(function (resp) {
             unwrap(resp.data, defer);
         }, function (err) {
             defer.reject(err);
-        });
-        return defer.promise;
-    }
-
-    function signalr(method, params) {
-        var defer = $q.defer();
-        $.connection.jsonRpcHub.server.execute(wrap(method, params)).done(function (resp) {
-            unwrap(resp, defer);
         });
         return defer.promise;
     }

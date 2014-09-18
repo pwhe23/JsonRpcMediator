@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -94,22 +93,22 @@ public class JsonRpcController : ApiController
     }
 };
 
-public class JsonRpcHub : Hub
-{
-    private readonly JsonRpc _jsonRpc;
+//public class JsonRpcHub : Hub
+//{
+//    private readonly JsonRpc _jsonRpc;
 
-    public JsonRpcHub(JsonRpc jsonRpc)
-    {
-        _jsonRpc = jsonRpc;
-    }
+//    public JsonRpcHub(JsonRpc jsonRpc)
+//    {
+//        _jsonRpc = jsonRpc;
+//    }
 
-    public dynamic Execute(JObject obj)
-    {
-        var json = obj.ToString();
-        var result = _jsonRpc.Execute(json);
-        return result;
-    }
-};
+//    public dynamic Execute(JObject obj)
+//    {
+//        var json = obj.ToString();
+//        var result = _jsonRpc.Execute(json);
+//        return result;
+//    }
+//};
 
 public class JsonRpcRequest
 {
