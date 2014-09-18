@@ -1,5 +1,7 @@
-﻿using MediatR;
+﻿using System.Web.Http;
+using MediatR;
 
+[Authorize(Roles = "Admin")]
 public class SaveOrder : IRequest<bool>
 {
     public int? Id { get; set; }
